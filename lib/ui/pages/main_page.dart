@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thriftinc/provider/bottom_navbar_provider.dart';
+import 'package:thriftinc/providers/bottom_navbar_provider.dart';
 import 'package:thriftinc/theme.dart';
 import 'package:thriftinc/ui/pages/cart/cart_page.dart';
 import 'package:thriftinc/ui/pages/chat/chat_page.dart';
