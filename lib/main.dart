@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:thriftinc/pages/Auth/sign_in_page.dart';
-import 'package:thriftinc/pages/auth/sign_up_page.dart';
-import 'package:thriftinc/pages/splash/splash_page.dart';
+import 'package:provider/provider.dart';
+import 'package:thriftinc/provider/bottom_navbar_provider.dart';
+import 'package:thriftinc/ui/pages/Auth/sign_in_page.dart';
+import 'package:thriftinc/ui/pages/auth/sign_up_page.dart';
+import 'package:thriftinc/ui/pages/cart/cart_page.dart';
+import 'package:thriftinc/ui/pages/chat/chat_page.dart';
+import 'package:thriftinc/ui/pages/home/home_page.dart';
+import 'package:thriftinc/ui/pages/main_page.dart';
+import 'package:thriftinc/ui/pages/profile/profile_page.dart';
+import 'package:thriftinc/ui/pages/splash/splash_page.dart';
+import 'package:thriftinc/ui/pages/wishlist/wishlist_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,32 +21,45 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Thriftinc',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => BottomNavbarProvider(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Thriftinc',
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // TRY THIS: Try running your application with "flutter run". You'll see
+          // the application has a blue toolbar. Then, without quitting the app,
+          // try changing the seedColor in the colorScheme below to Colors.green
+          // and then invoke "hot reload" (save your changes or press the "hot
+          // reload" button in a Flutter-supported IDE, or press "r" if you used
+          // the command line to start the app).
+          //
+          // Notice that the counter didn't reset back to zero; the application
+          // state is not lost during the reload. To reset the state, use hot
+          // restart instead.
+          //
+          // This works for code too, not just values: Most code changes can be
+          // tested with just a hot reload.
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        routes: {
+          '/': (context) => const SplashPage(),
+          '/sign_in': (context) => const SignInPage(),
+          '/sign_up': (context) => const SignUpPage(),
+          '/main': (context) => const MainPage(),
+          '/home': (context) => const HomePage(),
+          '/chat': (context) => const ChatPage(),
+          '/wishlist': (context) => const WishlistPage(),
+          '/profile': (context) => const ProfilePage(),
+          '/cart': (context) => const CartPage(),
+        },
       ),
-      routes: {
-        '/': (context) => const SplashPage(),
-        '/sign_in': (context) => const SignInPage(),
-        '/sign_up': (context) => const SignUpPage(),
-      },
     );
   }
 }

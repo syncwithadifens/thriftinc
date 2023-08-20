@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:thriftinc/theme.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController usernameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return Scaffold(
@@ -26,7 +24,7 @@ class SignUpPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Sign Up',
+                      'Login',
                       style: primaryTextStyle.copyWith(
                         fontSize: 24,
                         fontWeight: semiBold,
@@ -36,118 +34,14 @@ class SignUpPage extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      'Register and Happy Shoping',
+                      'Sign In to Continue',
                       style: subtitleTextStyle,
                     ),
                   ],
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 50),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Full Name',
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: medium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Container(
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
-                      decoration: BoxDecoration(
-                        color: backgroundColor2,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/icon_name.png',
-                              width: 17,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                textInputAction: TextInputAction.next,
-                                style: primaryTextStyle,
-                                controller: nameController,
-                                decoration: InputDecoration.collapsed(
-                                  hintText: 'Your Full Name',
-                                  hintStyle: subtitleTextStyle,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Username',
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: medium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Container(
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
-                      decoration: BoxDecoration(
-                        color: backgroundColor2,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/icon_username.png',
-                              width: 17,
-                            ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                textInputAction: TextInputAction.next,
-                                style: primaryTextStyle,
-                                controller: usernameController,
-                                decoration: InputDecoration.collapsed(
-                                  hintText: 'Your Username',
-                                  hintStyle: subtitleTextStyle,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 70),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -255,7 +149,9 @@ class SignUpPage extends StatelessWidget {
                 width: double.infinity,
                 margin: const EdgeInsets.only(top: 30),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/main');
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(
@@ -263,7 +159,7 @@ class SignUpPage extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Sign Up',
+                    'Sign In',
                     style: primaryTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: medium,
@@ -278,17 +174,17 @@ class SignUpPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already have an account? ',
+                      'Don\'t have an account? ',
                       style: subtitleTextStyle.copyWith(
                         fontSize: 12,
                       ),
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/sign_up');
                       },
                       child: Text(
-                        'Sign In',
+                        'Sign Up',
                         style: purpleTextStyle.copyWith(
                           fontSize: 12,
                           fontWeight: medium,
