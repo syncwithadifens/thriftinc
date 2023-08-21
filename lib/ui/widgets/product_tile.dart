@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thriftinc/models/product_model.dart';
 import 'package:thriftinc/theme.dart';
+import 'package:thriftinc/ui/pages/detail/detail_page.dart';
 
 class ProductTile extends StatelessWidget {
   final Datum product;
@@ -10,7 +11,13 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailPage(product),
+            ));
+      },
       child: Container(
         margin: EdgeInsets.only(
           top: 15,
