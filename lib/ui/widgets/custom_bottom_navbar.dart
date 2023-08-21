@@ -38,7 +38,7 @@ class CustomBottomNavbar extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 10,
+            width: 30,
           ),
           GestureDetector(
             onTap: () => selectedProvider.selectedPage(2),

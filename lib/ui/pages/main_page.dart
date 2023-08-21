@@ -35,6 +35,7 @@ class MainPage extends StatelessWidget {
     }
 
     return Scaffold(
+      extendBody: true,
       backgroundColor: backgroundColor1,
       floatingActionButton: const CustomFab(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

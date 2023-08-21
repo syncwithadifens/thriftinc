@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thriftinc/providers/bottom_navbar_provider.dart';
+import 'package:thriftinc/providers/product_provider.dart';
 import 'package:thriftinc/ui/pages/Auth/sign_in_page.dart';
 import 'package:thriftinc/ui/pages/auth/sign_up_page.dart';
 import 'package:thriftinc/ui/pages/cart/cart_page.dart';
@@ -24,10 +25,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => BottomNavbarProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
         )
       ],
       child: MaterialApp(
         title: 'Thriftinc',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,

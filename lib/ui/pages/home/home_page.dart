@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:thriftinc/providers/product_provider.dart';
 import 'package:thriftinc/theme.dart';
+import 'package:thriftinc/ui/widgets/product_card.dart';
+import 'package:thriftinc/ui/widgets/product_tile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductProvider>(context, listen: false).getProduct();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
     return ListView(
       children: [
         Container(
@@ -176,6 +192,25 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
+        productProvider.popularProductData != null
+            ? SizedBox(
+                height: 278,
+                width: double.infinity,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount:
+                      productProvider.popularProductData!.data.data.length,
+                  itemBuilder: (context, index) {
+                    return ProductCard(
+                        productProvider.popularProductData!.data.data[index],
+                        index);
+                  },
+                ),
+              )
+            : const Center(
+                child: Text('Oops empty'),
+              ),
         Container(
           margin: EdgeInsets.only(
             top: defaultMargin,
@@ -189,7 +224,20 @@ class HomePage extends StatelessWidget {
               fontWeight: semiBold,
             ),
           ),
-        )
+        ),
+        productProvider.latestProductData != null
+            ? ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: productProvider.latestProductData!.data.data.length,
+                itemBuilder: (context, index) {
+                  return ProductTile(
+                      productProvider.latestProductData!.data.data[index]);
+                },
+              )
+            : const Center(
+                child: Text('Oops empty'),
+              ),
       ],
     );
   }
