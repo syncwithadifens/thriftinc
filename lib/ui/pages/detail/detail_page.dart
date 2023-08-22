@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:thriftinc/models/product_model.dart';
+import 'package:thriftinc/providers/product_provider.dart';
 import 'package:thriftinc/theme.dart';
 
 class DetailPage extends StatelessWidget {
@@ -10,6 +12,8 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+
     List familiarShoes = [
       'assets/image_shoes.png',
       'assets/image_shoes2.png',
@@ -105,25 +109,48 @@ class DetailPage extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: 30,
+            top: 60,
             left: 0,
             right: 0,
-            child: CarouselSlider(
-              items: product.galleries
-                  .map(
-                    (index) => Image.network(
-                      index.url.replaceAll(
-                          'thriftinc-be.test', '192.168.20.109:8000'),
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                  .toList(),
-              options: CarouselOptions(
-                enlargeCenterPage: true,
-                height: 200,
-                initialPage: 0,
-                onPageChanged: (index, reason) {},
-              ),
+            child: Column(
+              children: [
+                CarouselSlider(
+                  items: product.galleries
+                      .map(
+                        (index) => Image.network(
+                          index.url.replaceAll(
+                              'thriftinc-be.test', '192.168.20.109:8000'),
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                      .toList(),
+                  options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    height: 200,
+                    initialPage: 0,
+                    enableInfiniteScroll: false,
+                    onPageChanged: (index, reason) {
+                      productProvider.showedImage(index);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: product.galleries.asMap().entries.map((e) {
+                      return Container(
+                        width: productProvider.currentIndex == e.key ? 16 : 4,
+                        height: 4,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: primaryColor),
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
             ),
           ),
           Positioned(
@@ -149,8 +176,8 @@ class DetailPage extends StatelessWidget {
             ),
           ),
           DraggableScrollableSheet(
-            initialChildSize: 0.65,
-            minChildSize: 0.65,
+            initialChildSize: 0.6,
+            minChildSize: 0.6,
             builder: (context, scrollController) => Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.vertical(
@@ -319,25 +346,23 @@ class DetailPage extends StatelessWidget {
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              children: familiarShoes.map((image) {
-                                return Container(
-                                  margin: const EdgeInsets.only(left: 0),
-                                  child: Container(
-                                    width: 54,
-                                    height: 54,
-                                    margin: const EdgeInsets.only(
-                                      right: 16,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(image),
-                                      ),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
+                                children:
+                                    familiarShoes.asMap().entries.map((e) {
+                              return Container(
+                                width: 54,
+                                height: 54,
+                                margin: EdgeInsets.only(
+                                  left: e.key == 0 ? defaultMargin : 0,
+                                  right: 16,
+                                ),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(e.value),
                                   ),
-                                );
-                              }).toList(),
-                            ),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                              );
+                            }).toList()),
                           )
                         ],
                       ),

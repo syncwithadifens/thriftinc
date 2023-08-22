@@ -7,6 +7,8 @@ class ProductProvider extends ChangeNotifier {
   ProductModel? popularProductData;
   ProductModel? latestProductData;
   String? status;
+  int currentIndex = 0;
+
   Future<void> getAll() async {
     final response = await ApiService().getAllProduct();
     response.fold(
@@ -31,6 +33,11 @@ class ProductProvider extends ChangeNotifier {
       (l) => status = l,
       (r) => latestProductData = r,
     );
+    notifyListeners();
+  }
+
+  void showedImage(int index) {
+    currentIndex = index;
     notifyListeners();
   }
 
